@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Poker Quest: Medieval Mayhem</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; height:100%; background:#1a0f08; font-family: "Trebuchet MS", system-ui, sans-serif; overflow:hidden; }
+  #app { position:fixed; inset:0; }
+  canvas { display:block; width:100%; height:100%; }
+  #ui { position:absolute; inset:0; pointer-events:none; }
+  .btn { pointer-events:auto; cursor:pointer; border:none; border-radius:8px; padding:8px 14px; font-weight:700; font-size:14px; background:#d4a017; color:#1a0f08; box-shadow:0 2px 0 #7a5a0a; }
+  .btn:active { transform:translateY(1px); }
+  .btn.secondary { background:#3a2a1a; color:#f0d9a8; box-shadow:0 2px 0 #1a0f08; }
+  .btn.danger { background:#8b1a1a; color:#fff; }
+  .panel { pointer-events:auto; background:rgba(20,12,6,0.92); border:1px solid #6b4a1a; border-radius:12px; padding:12px; color:#f0d9a8; }
+  #topbar { position:absolute; top:8px; left:8px; right:8px; display:flex; gap:8px; flex-wrap:wrap; pointer-events:none; }
+  .chip { background:rgba(20,12,6,0.85); border:1px solid #6b4a1a; border-radius:8px; padding:6px 10px; color:#f0d9a8; font-size:13px; font-weight:700; }
+  #msg { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(20,12,6,0.9); padding:12px 18px; border-radius:10px; color:#ffe9b0; font-weight:700; pointer-events:none; opacity:0; transition:opacity .2s; z-index:5; }
+  #msg.show { opacity:1; }
+  #shop { position:absolute; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; pointer-events:auto; z-index:10; }
+  #shop .inner { width:min(92vw,900px); max-height:90vh; overflow:auto; }
+  .shopgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin-top:10px; }
+  .carditem { background:#2a1a0a; border:1px solid #6b4a1a; border-radius:10px; padding:10px; }
+  .carditem h4 { margin:0 0 4px; color:#ffe9b0; }
+  .carditem p { margin:0 0 8px; font-size:12px; color:#c9a878; }
+  #overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); pointer-events:auto; z-index:20; }
+  #overlay .box { max-width:520px; text-align:center; }
+  #overlay h1 { color:#ffe9b0; font-size:36px; margin:0 0 8px; }
+  #overlay p { color:#c9a878; }
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="c"></canvas>
+  <div id="ui">
+    <div id="topbar"></div>
+    <div id="msg"></div>
+    <div id="shop">
+      <div class="panel inner">
+        <h2 style="margin:0 0 8px;color:#ffe9b0">Shop</h2>
+        <div id="shopmoney" style="margin-bottom:8px;"></div>
+        <div class="shopgrid" id="shopitems"></div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn secondary" id="reroll">Reroll ($<span id="rerollcost">1</span>)</button>
+          <button class="btn" id="leaveshop">Leave Shop</button>
+        </div>
+      </div>
+    </div>
+    <div id="overlay">
+      <div class="box panel">
+        <h1>Poker Quest</h1>
+        <p>Medieval Mayhem — a Balatro-like poker roguelike.</p>
+        <p style="font-size:12px">Play poker hands to smite foes. Buy relics. Don't go broke.</p>
+        <button class="btn" id="startbtn" style="margin-top:12px">Start Run</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
